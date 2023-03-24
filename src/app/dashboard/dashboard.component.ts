@@ -1,23 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { Hero } from '../hero';
-import { HeroService } from '../hero.service';
+import {Component} from '@angular/core';
+import {Observable} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map, switchMap} from 'rxjs/operators';
+import {Hero} from '../hero';
+import {HeroService} from '../hero.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: [ './dashboard.component.css' ]
 })
-export class DashboardComponent implements OnInit {
-  heroes: Hero[] = [];
+export class DashboardComponent {
+  searchString: string = '';
+  topHeroes$: Observable<Hero[]> = this.heroService.getHeroes()
+    .pipe(map(heroes => heroes.slice(1, 5)));
 
-  constructor(private heroService: HeroService) { }
+  searchHeroes$: Observable<Hero[]> = this.heroService.searchHeroes(this.searchString);
 
-  ngOnInit(): void {
-    this.getHeroes();
-  }
+  constructor(private heroService: HeroService) {}
 
-  getHeroes(): void {
-    this.heroService.getHeroes()
-      .subscribe(heroes => this.heroes = heroes.slice(1, 5));
+  searchHero(val: string): void {
+    this.searchHeroes$ = this.heroService.searchHeroes(val)
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+      )
   }
 }

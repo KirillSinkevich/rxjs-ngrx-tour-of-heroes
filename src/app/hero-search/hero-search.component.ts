@@ -1,40 +1,44 @@
-import { Component, OnInit } from '@angular/core';
-
-import { Observable, Subject } from 'rxjs';
-
-import {
-   debounceTime, distinctUntilChanged, switchMap
- } from 'rxjs/operators';
-
-import { Hero } from '../hero';
-import { HeroService } from '../hero.service';
+import { Component } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-hero-search',
   templateUrl: './hero-search.component.html',
-  styleUrls: [ './hero-search.component.css' ]
+  styleUrls: ['./hero-search.component.css'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: HeroSearchComponent,
+      multi: true
+    }]
 })
-export class HeroSearchComponent implements OnInit {
-  heroes$!: Observable<Hero[]>;
-  private searchTerms = new Subject<string>();
+export class HeroSearchComponent implements ControlValueAccessor{
+  search = '';
 
-  constructor(private heroService: HeroService) {}
+  onChange: any = () => {}
+  onTouch: any = () => {}
 
-  // Push a search term into the observable stream.
-  search(term: string): void {
-    this.searchTerms.next(term);
+  constructor() {}
+
+  get value(): string {
+    return this.search;
   }
 
-  ngOnInit(): void {
-    this.heroes$ = this.searchTerms.pipe(
-      // wait 300ms after each keystroke before considering the term
-      debounceTime(300),
+  set value(val: string){
+      this.search = val
+      this.onChange(val)
+      this.onTouch(val)
+  }
 
-      // ignore new term if same as previous term
-      distinctUntilChanged(),
+  writeValue(value: any){
+    this.value = value
+  }
 
-      // switch to new search observable each time the term changes
-      switchMap((term: string) => this.heroService.searchHeroes(term)),
-    );
+  registerOnChange(fn: any){
+    this.onChange = fn
+  }
+
+  registerOnTouched(onTouched: Function) {
+    this.onTouch = onTouched;
   }
 }

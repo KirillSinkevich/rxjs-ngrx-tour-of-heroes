@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, ParamMap} from '@angular/router';
 import { Location } from '@angular/common';
+import {Observable, switchMap} from 'rxjs';
+import {map, tap} from 'rxjs/operators';
 
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
@@ -10,8 +12,14 @@ import { HeroService } from '../hero.service';
   templateUrl: './hero-detail.component.html',
   styleUrls: [ './hero-detail.component.css' ]
 })
-export class HeroDetailComponent implements OnInit {
-  hero: Hero | undefined;
+export class HeroDetailComponent {
+  hero$: Observable<Hero> = this.route.paramMap
+    .pipe(
+      switchMap((params: ParamMap) => {
+        const id = parseInt(params.get('id')!, 10);
+        return this.heroService.getHero(id);
+      }),
+    )
 
   constructor(
     private route: ActivatedRoute,
@@ -19,23 +27,13 @@ export class HeroDetailComponent implements OnInit {
     private location: Location
   ) {}
 
-  ngOnInit(): void {
-    this.getHero();
-  }
-
-  getHero(): void {
-    const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
-    this.heroService.getHero(id)
-      .subscribe(hero => this.hero = hero);
-  }
-
   goBack(): void {
     this.location.back();
   }
 
-  save(): void {
-    if (this.hero) {
-      this.heroService.updateHero(this.hero)
+  save(hero: Hero): void {
+    if (hero) {
+      this.heroService.updateHero(hero)
         .subscribe(() => this.goBack());
     }
   }
