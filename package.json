@@ -12,10 +12,14 @@
     "e2e": "ng e2e",
     "lint": "npx eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "lint-fix": "npx eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prettier": "prettier --write --ignore-unknown"
   },
   "lint-staged": {
-    "**/*": "npm run lint"
+    "**/*": [
+      "npm run lint",
+      "npm run prettier"
+    ]
   },
   "private": true,
   "dependencies": {
