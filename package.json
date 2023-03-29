@@ -15,7 +15,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "**/*": "eslint 'src/**/*.{js,jsx,ts,tsx}'"
   },
   "private": true,
   "dependencies": {
