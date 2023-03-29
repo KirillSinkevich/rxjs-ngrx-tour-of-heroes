@@ -16,7 +16,6 @@ export class HeroesComponent {
   heroes$: Observable<Hero[]> = merge(
     this._add$.pipe(
       filter(Boolean),
-
       switchMap((name: string) => this.heroService.addHero({ name } as Hero)),
     ),
     this._delete$.pipe(
