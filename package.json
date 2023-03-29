@@ -15,7 +15,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "**/*": "eslint 'src/**/*.{js,jsx,ts,tsx}'"
+    "**/*": "npm run lint"
   },
   "private": true,
   "dependencies": {
