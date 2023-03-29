@@ -9,23 +9,20 @@ import { HeroService } from '../hero.service';
 @Component({
   selector: 'app-hero-detail',
   templateUrl: './hero-detail.component.html',
-  styleUrls: [ './hero-detail.component.css' ]
+  styleUrls: ['./hero-detail.component.css'],
 })
 export class HeroDetailComponent {
+  hero$: Observable<Hero> = this.route.paramMap.pipe(
+    switchMap((params: ParamMap) => {
+      const id = parseInt(params.get('id') || '', 10);
+      return this.heroService.getHero(id);
+    }),
+  );
 
-  hero$: Observable<Hero> =
-    this.route.paramMap
-      .pipe(
-        switchMap((params: ParamMap) => {
-          const id = parseInt(params.get('id') || '', 10);
-          return this.heroService.getHero(id);
-        }),
-      );
-  
   constructor(
     private route: ActivatedRoute,
     private heroService: HeroService,
-    private location: Location
+    private location: Location,
   ) {}
 
   goBack(): void {
@@ -34,8 +31,7 @@ export class HeroDetailComponent {
 
   save(hero: Hero): void {
     if (hero) {
-      this.heroService.updateHero(hero)
-        .subscribe(() => this.goBack());
+      this.heroService.updateHero(hero).subscribe(() => this.goBack());
     }
   }
 }

@@ -1,8 +1,7 @@
 <h2>Top Heroes</h2>
 <div class="heroes-menu">
-  <a *ngFor="let hero of topHeroes$ | async"
-      routerLink="/detail/{{hero.id}}">
-      {{hero.name}}
+  <a *ngFor="let hero of topHeroes$ | async" routerLink="/detail/{{ hero.id }}">
+    {{ hero.name }}
   </a>
 </div>
 
@@ -10,8 +9,8 @@
 
 <ul class="search-result">
   <li *ngFor="let hero of searchHeroes$ | async">
-    <a routerLink="/detail/{{hero.id}}">
-      {{hero.name}}
+    <a routerLink="/detail/{{ hero.id }}">
+      {{ hero.name }}
     </a>
   </li>
 </ul>

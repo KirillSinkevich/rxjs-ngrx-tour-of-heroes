@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable, Subject, switchMap, filter, startWith, merge } from 'rxjs';
 
-import {Hero} from '../hero';
-import {HeroService} from '../hero.service';
+import { Hero } from '../hero';
+import { HeroService } from '../hero.service';
 
 @Component({
   selector: 'app-heroes',

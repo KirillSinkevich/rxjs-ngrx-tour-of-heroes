@@ -17,13 +17,11 @@ describe('DashboardComponent', () => {
   beforeEach(waitForAsync(() => {
     heroService = jasmine.createSpyObj('HeroService', ['getHeroes']);
     getHeroesSpy = heroService.getHeroes.and.returnValue(of(HEROES));
-    TestBed
-        .configureTestingModule({
-          declarations: [DashboardComponent, HeroSearchComponent],
-          imports: [RouterTestingModule.withRoutes([])],
-          providers: [{provide: HeroService, useValue: heroService}]
-        })
-        .compileComponents();
+    TestBed.configureTestingModule({
+      declarations: [DashboardComponent, HeroSearchComponent],
+      imports: [RouterTestingModule.withRoutes([])],
+      providers: [{ provide: HeroService, useValue: heroService }],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
@@ -39,10 +37,10 @@ describe('DashboardComponent', () => {
   });
 
   it('should call heroService', waitForAsync(() => {
-       expect(getHeroesSpy.calls.any()).toBe(true);
-     }));
+    expect(getHeroesSpy.calls.any()).toBe(true);
+  }));
 
   it('should display 4 links', waitForAsync(() => {
-       expect(fixture.nativeElement.querySelectorAll('a').length).toEqual(4);
-     }));
+    expect(fixture.nativeElement.querySelectorAll('a').length).toEqual(4);
+  }));
 });
