@@ -19,11 +19,7 @@ export class HeroDetailComponent {
     }),
   );
 
-  constructor(
-    private route: ActivatedRoute,
-    private heroService: HeroService,
-    private location: Location,
-  ) {}
+  constructor(private route: ActivatedRoute, private heroService: HeroService, private location: Location) {}
 
   goBack(): void {
     this.location.back();

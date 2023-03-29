@@ -13,9 +13,7 @@ import { HeroService } from '../hero.service';
 export class DashboardComponent {
   searchControl: FormControl = new FormControl<string>('');
 
-  topHeroes$: Observable<Hero[]> = this.heroService
-    .getHeroes()
-    .pipe(map((heroes) => heroes.slice(1, 5)));
+  topHeroes$: Observable<Hero[]> = this.heroService.getHeroes().pipe(map((heroes) => heroes.slice(1, 5)));
 
   searchHeroes$: Observable<Hero[]> = this._getSearchHeroes$();
 

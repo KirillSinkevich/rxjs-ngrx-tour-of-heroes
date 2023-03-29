@@ -32,13 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatProgressSpinnerModule,
     ReactiveFormsModule,
   ],
-  declarations: [
-    AppComponent,
-    DashboardComponent,
-    HeroesComponent,
-    HeroDetailComponent,
-    HeroSearchComponent,
-  ],
+  declarations: [AppComponent, DashboardComponent, HeroesComponent, HeroDetailComponent, HeroSearchComponent],
   bootstrap: [AppComponent],
   providers: [
     MatSnackBar,

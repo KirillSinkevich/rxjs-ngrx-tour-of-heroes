@@ -10,16 +10,21 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "e2e": "ng e2e",
-    "lint": "npx eslint 'src/**/*.{js,jsx,ts,tsx}'",
-    "lint-fix": "npx eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
+    "lint": "npx eslint '**/**.{js,ts}'",
+    "lint-fix": "npx eslint --fix '**/**.{js,ts}'",
+    "style-lint": "npx stylelint '**/**.{css, scss}' --cache --ignore-path -i '.stylelintignore'",
+    "style-lint-fix": "npx stylelint '**/**.{css, scss}' --fix",
     "prepare": "husky install",
-    "prettier": "prettier --write --ignore-unknown"
+    "prettier": "prettier --check . --ignore-unknown"
   },
   "lint-staged": {
-    "**/*": [
-      "npm run lint",
-      "npm run prettier"
-    ]
+    "**/*.{js,ts}": [
+      "npm run lint"
+    ],
+    "**/*.{css, scss}": [
+      "npm run style-lint"
+    ],
+    "**/*": "npm run prettier"
   },
   "private": true,
   "dependencies": {
@@ -61,6 +66,9 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "prettier": "2.8.7",
     "protractor": "~7.0.0",
+    "stylelint": "^15.3.0",
+    "stylelint-config-standard": "^31.0.0",
+    "stylelint-config-standard-scss": "^7.0.1",
     "ts-node": "~10.9.0",
     "typescript": "^4.9.5"
   }

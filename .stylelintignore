@@ -1,0 +1,17 @@
+node_modules
+build
+coverage
+e2e
+.angular
+.husky
+.editorconfig
+.stylelintcache
+
+.eslintignore
+.stylelintignore
+.prettierignore
+.gitignore
+
+**.js
+**.json
+**.spec.ts

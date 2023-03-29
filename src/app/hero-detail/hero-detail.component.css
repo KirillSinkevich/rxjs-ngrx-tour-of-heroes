@@ -3,10 +3,12 @@ label {
   color: #435960;
   font-weight: bold;
 }
+
 input {
   font-size: 1em;
   padding: 0.5rem;
 }
+
 button {
   margin-top: 20px;
   margin-right: 0.5rem;
@@ -15,9 +17,11 @@ button {
   border-radius: 4px;
   font-size: 1rem;
 }
+
 button:hover {
   background-color: #cfd8dc;
 }
+
 button:disabled {
   background-color: #eee;
   color: #ccc;

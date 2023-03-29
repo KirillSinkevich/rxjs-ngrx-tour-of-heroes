@@ -1,4 +1,8 @@
 # Ignore artifacts:
+node_modules
 build
 coverage
 **.spec.ts
+.angular
+.husky
+e2e
