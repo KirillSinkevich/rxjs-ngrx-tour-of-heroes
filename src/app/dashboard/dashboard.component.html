@@ -6,9 +6,7 @@
   </a>
 </div>
 
-<app-hero-search [(ngModel)]="searchString" (ngModelChange)="searchHero($event)"></app-hero-search>
-
-<p>search string: {{searchString}}</p>
+<app-hero-search [formCtrl]="searchControl"></app-hero-search>
 
 <ul class="search-result">
   <li *ngFor="let hero of searchHeroes$ | async">

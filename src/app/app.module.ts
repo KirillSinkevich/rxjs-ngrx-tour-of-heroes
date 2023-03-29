@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar} from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -27,23 +27,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, {dataEncapsulation: false},
-    ),
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false }),
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     AppComponent,
     DashboardComponent,
     HeroesComponent,
     HeroDetailComponent,
-    HeroSearchComponent
+    HeroSearchComponent,
   ],
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   providers: [
     MatSnackBar,
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500, horizontalPosition: 'right', verticalPosition: 'bottom'}},
-  ]
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: { duration: 2500, horizontalPosition: 'right', verticalPosition: 'bottom' },
+    },
+  ],
 })
-export class AppModule { }
+export class AppModule {}

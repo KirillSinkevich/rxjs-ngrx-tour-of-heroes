@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import { Component } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
-import {Observable, switchMap} from 'rxjs';
-import {map, tap} from 'rxjs/operators';
+import { Observable, switchMap } from 'rxjs';
 
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
@@ -13,14 +12,16 @@ import { HeroService } from '../hero.service';
   styleUrls: [ './hero-detail.component.css' ]
 })
 export class HeroDetailComponent {
-  hero$: Observable<Hero> = this.route.paramMap
-    .pipe(
-      switchMap((params: ParamMap) => {
-        const id = parseInt(params.get('id')!, 10);
-        return this.heroService.getHero(id);
-      }),
-    )
 
+  hero$: Observable<Hero> =
+    this.route.paramMap
+      .pipe(
+        switchMap((params: ParamMap) => {
+          const id = parseInt(params.get('id')!, 10);
+          return this.heroService.getHero(id);
+        }),
+      )
+  
   constructor(
     private route: ActivatedRoute,
     private heroService: HeroService,

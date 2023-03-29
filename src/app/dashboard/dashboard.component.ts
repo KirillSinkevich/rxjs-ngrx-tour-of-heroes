@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {Observable} from 'rxjs';
+import {AbstractControl, FormControl} from '@angular/forms';
+import {combineLatest, combineLatestAll, Observable, startWith, tap} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, switchMap} from 'rxjs/operators';
 import {Hero} from '../hero';
 import {HeroService} from '../hero.service';
@@ -7,22 +8,32 @@ import {HeroService} from '../hero.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: [ './dashboard.component.css' ]
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
-  searchString: string = '';
-  topHeroes$: Observable<Hero[]> = this.heroService.getHeroes()
-    .pipe(map(heroes => heroes.slice(1, 5)));
+  searchControl: FormControl = new FormControl<string>('');
 
-  searchHeroes$: Observable<Hero[]> = this.heroService.searchHeroes(this.searchString);
+  topHeroes$: Observable<Hero[]> = this.heroService.getHeroes()
+    .pipe(map((heroes) => heroes.slice(1, 5)));
+
+  searchHeroes$: Observable<Hero[]> = this._getSearchHeroes$();
 
   constructor(private heroService: HeroService) {}
 
-  searchHero(val: string): void {
-    this.searchHeroes$ = this.heroService.searchHeroes(val)
+  private _getSearchHeroes$(): Observable<Hero[]> {
+    return combineLatest([
+      this.heroService.getHeroes(),
+      this._searchControlChanges$()]
+    ).pipe(map(([allHeroes, searchHeroes]) => searchHeroes.length ? searchHeroes : allHeroes))
+  }
+
+  private _searchControlChanges$(): Observable<Hero[]> {
+    return this.searchControl.valueChanges
       .pipe(
+        startWith(''),
         debounceTime(300),
         distinctUntilChanged(),
+        switchMap((string) => this.heroService.searchHeroes(string)),
       )
   }
 }
