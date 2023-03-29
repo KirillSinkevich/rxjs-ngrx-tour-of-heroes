@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import { Observable, Subject, switchMap, filter, startWith, tap, merge } from 'rxjs';
+import { Observable, Subject, switchMap, filter, startWith, merge } from 'rxjs';
 
 import {Hero} from '../hero';
 import {HeroService} from '../hero.service';

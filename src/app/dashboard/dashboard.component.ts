@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {AbstractControl, FormControl} from '@angular/forms';
-import {combineLatest, combineLatestAll, Observable, startWith, tap} from 'rxjs';
+import {FormControl} from '@angular/forms';
+import {combineLatest, Observable, startWith} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, switchMap} from 'rxjs/operators';
 import {Hero} from '../hero';
 import {HeroService} from '../hero.service';
@@ -24,7 +24,7 @@ export class DashboardComponent {
     return combineLatest([
       this.heroService.getHeroes(),
       this._searchControlChanges$()]
-    ).pipe(map(([allHeroes, searchHeroes]) => searchHeroes.length ? searchHeroes : allHeroes))
+    ).pipe(map(([allHeroes, searchHeroes]) => searchHeroes.length ? searchHeroes : allHeroes));
   }
 
   private _searchControlChanges$(): Observable<Hero[]> {
@@ -34,6 +34,6 @@ export class DashboardComponent {
         debounceTime(300),
         distinctUntilChanged(),
         switchMap((string) => this.heroService.searchHeroes(string)),
-      )
+      );
   }
 }
