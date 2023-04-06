@@ -16,6 +16,7 @@ import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   imports: [
@@ -32,7 +33,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatProgressSpinnerModule,
     ReactiveFormsModule,
   ],
-  declarations: [AppComponent, DashboardComponent, HeroesComponent, HeroDetailComponent, HeroSearchComponent],
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    HeroesComponent,
+    HeroDetailComponent,
+    HeroSearchComponent,
+    FilterPipe,
+  ],
   bootstrap: [AppComponent],
   providers: [
     MatSnackBar,

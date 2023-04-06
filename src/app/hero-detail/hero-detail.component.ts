@@ -16,7 +16,7 @@ export class HeroDetailComponent {
     switchMap((params: ParamMap) => {
       const id = parseInt(params.get('id') || '', 10);
       return this.heroService.getHero(id);
-    }),
+    })
   );
 
   constructor(private route: ActivatedRoute, private heroService: HeroService, private location: Location) {}

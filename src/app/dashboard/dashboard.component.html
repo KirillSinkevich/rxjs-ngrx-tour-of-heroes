@@ -7,8 +7,8 @@
 
 <app-hero-search [formCtrl]="searchControl"></app-hero-search>
 
-<ul class="search-result">
-  <li *ngFor="let hero of searchHeroes$ | async">
+<ul class="search-result" *ngIf="searchHeroes$ | async as heroes">
+  <li *ngFor="let hero of heroes | filter : searchCntrValue">
     <a routerLink="/detail/{{ hero.id }}">
       {{ hero.name }}
     </a>

@@ -11,20 +11,21 @@ import { HeroService } from '../hero.service';
 })
 export class HeroesComponent {
   private _add$: Subject<string> = new Subject<string>();
+
   private _delete$: Subject<number> = new Subject<number>();
 
   heroes$: Observable<Hero[]> = merge(
     this._add$.pipe(
       filter(Boolean),
-      switchMap((name: string) => this.heroService.addHero({ name } as Hero)),
+      switchMap((name: string) => this.heroService.addHero({ name } as Hero))
     ),
     this._delete$.pipe(
       filter(Boolean),
-      switchMap((heroId: number) => this.heroService.deleteHero(heroId)),
-    ),
+      switchMap((heroId: number) => this.heroService.deleteHero(heroId))
+    )
   ).pipe(
     startWith(''),
-    switchMap(() => this.heroService.getHeroes()),
+    switchMap(() => this.heroService.getHeroes())
   );
 
   constructor(private heroService: HeroService) {}
