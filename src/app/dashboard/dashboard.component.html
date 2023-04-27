@@ -1,16 +1,24 @@
-<h2>Top Heroes</h2>
-<div class="heroes-menu">
-  <a *ngFor="let hero of topHeroes$ | async" routerLink="/detail/{{ hero.id }}">
-    {{ hero.name }}
-  </a>
-</div>
-
-<app-hero-search [formCtrl]="searchControl"></app-hero-search>
-
-<ul class="search-result" *ngIf="searchHeroes$ | async as heroes">
-  <li *ngFor="let hero of heroes | filter : searchCntrValue">
-    <a routerLink="/detail/{{ hero.id }}">
+<ng-container *ngIf="vm$ | async as vm">
+  <h2>Top Heroes</h2>
+  <div class="heroes-menu" *ngIf="!vm.loading; else loader">
+    <a *ngFor="let hero of vm.topHeroes" routerLink="/detail/{{ hero.id }}">
       {{ hero.name }}
     </a>
-  </li>
-</ul>
+  </div>
+
+  <app-hero-search [formCtrl]="searchControl"></app-hero-search>
+
+  <ul class="search-result" *ngIf="!vm.loading; else loader">
+    <li *ngFor="let hero of vm.heroes | filter : searchCntrValue">
+      <a routerLink="/detail/{{ hero.id }}">
+        {{ hero.name }}
+      </a>
+    </li>
+  </ul>
+
+  <ng-template #loader>
+    <div class="loader">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
+</ng-container>

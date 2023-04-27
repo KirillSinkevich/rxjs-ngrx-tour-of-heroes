@@ -88,3 +88,11 @@ button.delete:hover {
   background-color: #525252;
   color: white;
 }
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 40vh;
+}

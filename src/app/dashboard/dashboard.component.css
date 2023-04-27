@@ -49,3 +49,11 @@ a {
 a:hover {
   background-color: black;
 }
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 20vh;
+}
